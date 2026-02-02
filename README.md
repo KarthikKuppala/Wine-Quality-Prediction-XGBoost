@@ -31,6 +31,10 @@ Ensure you have R and the required libraries installed.
 Clone the repository: git clone https://github.com/YOUR_USERNAME/Wine-Quality-Prediction-XGBoost.git
 Run analysis.R to train the model and generate the submission file.
 
+**Data Sources**
+
+When this project was orignally created the data sources were directly fed into the code structure to obtain the results but due to copyright and data availabilty issues the orignal source data is not being provided in this repository. Instead a special provision is made in the code, providing set parameters to replice the results.
+
 **Results**
 
 *Note: These are baseline results that can be imporved via feature and code optimization.
