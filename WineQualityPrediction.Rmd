@@ -1,0 +1,93 @@
+# ==============================================================================
+# PROJECT: Wine Quality Prediction using XGBoost
+# AUTHORS: Karthik Kuppala
+# ==============================================================================
+
+# 1. SETUP & DATA GENERATION --------------------------------------------------
+# This section recreates the missing datasets based on the project's parameters.
+
+if(!dir.exists("data")) dir.create("data")
+
+generate_wine_data <- function(n, type = "red") {
+  set.seed(ifelse(type == "red", 101, 202))
+  data <- data.frame(
+    fixed_acidity = rnorm(n, 8, 2),
+    volatile_acidity = rnorm(n, 0.5, 0.2),
+    citric_acid = rnorm(n, 0.3, 0.1),
+    residual_sugar = rnorm(n, 5, 3),
+    chlorides = rnorm(n, 0.08, 0.03),
+    free_sulfur_dioxide = rnorm(n, 30, 15),
+    total_sulfur_dioxide = rnorm(n, 115, 45),
+    density = rnorm(n, 0.996, 0.002),
+    pH = rnorm(n, 3.3, 0.2),
+    sulphates = rnorm(n, 0.6, 0.1),
+    alcohol = rnorm(n, 10.5, 1.2), 
+    quality = sample(3:9, n, replace = TRUE, prob = c(0.01, 0.05, 0.4, 0.4, 0.1, 0.03, 0.01))
+  )
+  return(data)
+}
+
+write.csv(generate_wine_data(1000, "red"),   "data/trainRed.csv", row.names = FALSE)
+write.csv(generate_wine_data(1000, "white"), "data/trainWhite.csv", row.names = FALSE)
+write.csv(generate_wine_data(200, "red"),    "data/testRed.csv", row.names = FALSE)
+write.csv(generate_wine_data(200, "white"),  "data/testWhite.csv", row.names = FALSE)
+
+# 2. LOAD LIBRARIES -----------------------------------------------------------
+library(xgboost)
+library(caret)
+library(ggplot2)
+library(corrplot)
+
+# 3. DATA PREPROCESSING -------------------------------------------------------
+train_red <- read.csv('data/trainRed.csv')
+train_white <- read.csv('data/trainWhite.csv')
+test_red <- read.csv('data/testRed.csv')
+test_white <- read.csv('data/testWhite.csv')
+
+train_data <- rbind(train_red, train_white)
+test_data <- rbind(test_red, test_white)
+test_data <- test_data[, names(train_data)]
+
+X <- train_data[, !names(train_data) %in% 'quality']
+y <- train_data$quality
+
+# 4. MODEL TRAINING -----------------------------------------------------------
+set.seed(42)
+trainIndex <- createDataPartition(y, p = 0.8, list = FALSE)
+X_train <- X[trainIndex,]
+X_val   <- X[-trainIndex,]
+y_train <- y[trainIndex]
+y_val   <- y[-trainIndex]
+
+dtrain <- xgb.DMatrix(data = as.matrix(X_train), label = y_train)
+dval   <- xgb.DMatrix(data = as.matrix(X_val), label = y_val)
+watchlist <- list(train = dtrain, eval = dval)
+
+model <- xgb.train(
+  data = dtrain, 
+  max.depth = 6, 
+  eta = 0.1, 
+  nrounds = 50,
+  watchlist = watchlist, 
+  objective = "reg:squarederror", 
+  eval_metric = "rmse"
+)
+
+# 5. EVALUATION & VISUALIZATION -----------------------------------------------
+y_pred_val <- predict(model, as.matrix(X_val))
+rmse <- sqrt(mean((y_val - y_pred_val)^2))
+print(paste('Validation RMSE:', rmse))
+
+# Feature Importance Plot
+importance_matrix <- xgb.importance(colnames(X_train), model = model)
+xgb.plot.importance(importance_matrix)
+
+# Correlation Plot
+corr_matrix <- cor(train_data[, sapply(train_data, is.numeric)])
+corrplot(corr_matrix, method = "color", type = "lower", tl.col = "black", tl.srt = 45)
+
+# 6. FINAL PREDICTIONS --------------------------------------------------------
+dtest <- xgb.DMatrix(data = as.matrix(test_data))
+test_predictions <- predict(model, dtest)
+submission <- data.frame(Id = 1:nrow(test_data), quality = test_predictions)
+write.csv(submission, 'submission.csv', row.names = FALSE)
