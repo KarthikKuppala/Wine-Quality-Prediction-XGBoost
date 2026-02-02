@@ -41,7 +41,7 @@ When this project was orignally created the data sources were directly fed into 
 
 ## Results
 
-**Note: **These are baseline results that can be imporved via feature and code optimization.
+**Note:** These are baseline results that can be imporved via feature and code optimization.
 **Accuracy:** 0.60652    
 **Validation Metric:** RMSE (Root Mean Square Error)
 
