@@ -40,3 +40,14 @@ When this project was orignally created the data sources were directly fed into 
 *Note: These are baseline results that can be imporved via feature and code optimization.
 Accuracy: 0.60652    
 Validation Metric: RMSE (Root Mean Square Error)
+
+**Technical Appendix: Feature Definitions**
+
+The following chemical features are utilized as predictors (independent variables) in the regression model to determine the target response variable (wine quality).
+
+https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcS9DiaaLqPrpTGnKbEMexzU2_rWSd6bQQpMyUPhcJ31VhWT0RpB6eGbzcN1fk-YL-uh0f6lj7jvaoov5JTpTXExudMPCKh083iI2B5Es7b7Eogq6f0<img width="3999" height="2764" alt="image" src="https://github.com/user-attachments/assets/61c538ff-7e32-4bf6-a78e-b780f0ccecbc" />
+(Image sourced from shutterstock)
+
+Apart from alcohol content the features include:
+
+<img width="564" height="376" alt="image" src="https://github.com/user-attachments/assets/de187886-9617-4c26-8e87-71fb8cfb9e0b" />
