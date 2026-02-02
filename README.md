@@ -45,7 +45,7 @@ Validation Metric: RMSE (Root Mean Square Error)
 
 The following chemical features are utilized as predictors (independent variables) in the regression model to determine the target response variable (wine quality).
 
-https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcS9DiaaLqPrpTGnKbEMexzU2_rWSd6bQQpMyUPhcJ31VhWT0RpB6eGbzcN1fk-YL-uh0f6lj7jvaoov5JTpTXExudMPCKh083iI2B5Es7b7Eogq6f0<img width="3999" height="2764" alt="image" src="https://github.com/user-attachments/assets/61c538ff-7e32-4bf6-a78e-b780f0ccecbc" />
+<img width="3999" height="2764" alt="image" src="https://github.com/user-attachments/assets/61c538ff-7e32-4bf6-a78e-b780f0ccecbc" />
 (Image sourced from shutterstock)
 
 Apart from alcohol content the features include:
