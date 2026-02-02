@@ -2,7 +2,7 @@
 Predictive modeling of wine quality using XGBoost in R.
 
 ## About me
-I work as a Data Analyst and AI Engineer concentrating on using statistical modeling to address environmental and societal issues. I focus on R, machine learning, and predictive analysis. Don't hesitate to reach out to me on LinkedIn or check out my additional projects
+Hi I'm Karthik, I work as a Data Analyst + AI Engineer concentrating on using statistical modeling to address environmental and societal issues. I focus on R, machine learning, and predictive analysis. Don't hesitate to reach out to me on [LinkedIn](https://www.linkedin.com/in/karthikkuppala/) or check out my additional projects.
 
 ##  Project Overview
 
@@ -55,3 +55,7 @@ The following chemical features are utilized as predictors (independent variable
 Apart from alcohol content the features include:
 
 <img width="564" height="376" alt="image" src="https://github.com/user-attachments/assets/de187886-9617-4c26-8e87-71fb8cfb9e0b" />
+
+~
+
+Thank you for taking the time to have a look at my work <3
